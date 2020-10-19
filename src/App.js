@@ -1,12 +1,16 @@
-import React from "react";
-import { Navbar, Nav, NavDropdown, Jumbotron, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Navbar, Nav, NavDropdown, Jumbotron } from "react-bootstrap";
 import "./App.css";
+import Data from "./data.js";
+import Good from "./components/Good";
 
 function App() {
+  let [shoes, shoes변경] = useState(Data);
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">써니의 쇼핑몰</Navbar.Brand>
+        <Navbar.Brand href="#home">sunny's MALL</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
@@ -28,33 +32,22 @@ function App() {
       </Navbar>
 
       <Jumbotron className="background">
-        <h1>캣스터넷츠 상품 판매</h1>
+        <h1>Welcome</h1>
         <p>
-          This is a simple hero unit, a simple jumbotron-style component for
-          calling extra attention to featured content or information.
-        </p>
-        <p>
-          <Button variant="primary">Learn more</Button>
+          리액트 학습을 위해 만든 쇼핑몰입니다 :)
         </p>
       </Jumbotron>
 
       <div className="container">
         <div className="row">
-        <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
-            <h4>상품명</h4>
-            <p>상품정보</p>
-          </div>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="100%" />
-            <h4>상품명</h4>
-            <p>상품정보</p>
-          </div>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="100%" />
-            <h4>상품명</h4>
-            <p>상품정보</p>
-          </div>
+          {shoes.map((v, i) => (
+            <Good
+              title={v.title}
+              content={v.content}
+              price={v.price}
+              img={`https://codingapple1.github.io/shop/shoes${i + 1}.jpg`}
+            />
+          ))}
         </div>
       </div>
     </div>
