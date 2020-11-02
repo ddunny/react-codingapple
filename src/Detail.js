@@ -1,5 +1,15 @@
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
+import styled from "styled-components";
+
+let 박스 = styled.div`
+  padding: 20px;
+`;
+
+let 제목 = styled.h4`
+  font-size: 35px;
+  color: ${(props) => props.색상};
+`;
 
 export default function Detail({ shoes }) {
   let { id } = useParams();
@@ -9,6 +19,9 @@ export default function Detail({ shoes }) {
   return (
     <>
       <div className="container">
+        <박스>
+          <제목 색상="blue">제목을 써봅니다.</제목>
+        </박스>
         <div className="row">
           <div className="col-md-6">
             <img
