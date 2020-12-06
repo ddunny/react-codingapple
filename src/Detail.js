@@ -25,6 +25,7 @@ export default function Detail({ shoes }) {
     console.log("안녕");
     return function 어쩌구() {
       //실행할 코드
+      clearTimeout(timer);
     };
 
     // 3. 여러개를 사용하고 싶다면 여러개 써도 된다. (실행 순서는 순차적!)
@@ -40,7 +41,7 @@ export default function Detail({ shoes }) {
         <박스>
           <제목 className="red">제목을 써봅니다.</제목>
         </박스>
-        {inputData} 
+        {inputData}
         <input
           onChange={(e) => {
             inputData변경(e.target.value);
