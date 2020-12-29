@@ -7,9 +7,12 @@ import Good from "./components/Good";
 import { Link, Route, Switch } from "react-router-dom";
 import Detail from "./Detail.js";
 import axios from "axios";
+import Loader from "./Loader";
 
 function App() {
   let [shoes, shoes변경] = useState(Data);
+  let [loading, setLoading] = useState(false);
+  let [clickBtnCount, setClickBtnCount] = useState(0);
 
   return (
     <div className="App">
@@ -60,22 +63,29 @@ function App() {
                   />
                 ))}
               </div>
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  axios
-                    .get("https://codingapple1.github.io/shop/data2.json")
-                    .then((v) => {
-                      console.log("성공", v);
-                      shoes변경([...shoes, ...v.data]);
-                    })
-                    .catch(() => {
-                      console.error("실패");
-                    });
-                }}
-              >
-                더보기
-              </button>
+              {!clickBtnCount && (
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    setLoading(true);
+                    axios
+                      .get("https://codingapple1.github.io/shop/data2.json")
+                      .then((v) => {
+                        setClickBtnCount(1);
+                        setLoading(false);
+                        console.log("성공", v);
+                        shoes변경([...shoes, ...v.data]);
+                      })
+                      .catch(() => {
+                        setLoading(false);
+                        console.error("실패");
+                      });
+                  }}
+                >
+                  {loading && <Loader />}
+                  더보기
+                </button>
+              )}
             </div>
           </div>
         </Route>
