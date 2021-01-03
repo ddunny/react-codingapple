@@ -8,11 +8,13 @@ import { Link, Route, Switch } from "react-router-dom";
 import Detail from "./Detail.js";
 import axios from "axios";
 import Loader from "./Loader";
+import { 재고context } from "./state/remain";
 
 function App() {
   let [shoes, shoes변경] = useState(Data);
   let [loading, setLoading] = useState(false);
   let [clickBtnCount, setClickBtnCount] = useState(0);
+  let [재고, 재고변경] = useState([10, 11, 12]);
 
   return (
     <div className="App">
@@ -50,19 +52,21 @@ function App() {
               <p>리액트 학습을 위해 만든 쇼핑몰입니다 :)</p>
             </Jumbotron>
             <div className="container">
-              <div className="row">
-                {shoes.map((v, i) => (
-                  <Good
-                    title={v.title}
-                    content={v.content}
-                    price={v.price}
-                    img={`https://codingapple1.github.io/shop/shoes${
-                      i + 1
-                    }.jpg`}
-                    key={`${v.title}${i}`}
-                  />
-                ))}
-              </div>
+              <재고context.Provider value={재고}>
+                <div className="row">
+                  {shoes.map((v, i) => (
+                    <Good
+                      title={v.title}
+                      content={v.content}
+                      price={v.price}
+                      img={`https://codingapple1.github.io/shop/shoes${
+                        i + 1
+                      }.jpg`}
+                      key={`${v.title}${i}`}
+                    />
+                  ))}
+                </div>
+              </재고context.Provider>
               {!clickBtnCount && (
                 <button
                   className="btn btn-primary"

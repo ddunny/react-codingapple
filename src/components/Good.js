@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { 재고context } from "../state/remain";
 
 export default function Good({ title, content, price, img }) {
-  // props 를 해체한 것
+  let 재고 = useContext(재고context);
+
   return (
     <>
       <div className="col-md-4">
@@ -9,6 +11,7 @@ export default function Good({ title, content, price, img }) {
         <h4>{title}</h4>
         <p>{content}</p>
         <p>{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+        {재고}
       </div>
     </>
   );
