@@ -19,7 +19,7 @@ function App() {
   return (
     <div className='App'>
       <Navbar bg='light' expand='lg'>
-        <Navbar.Brand href='#home'>sunny's MALL</Navbar.Brand>
+        <Navbar.Brand href='/'>sunny's MALL</Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='ml-auto'>
