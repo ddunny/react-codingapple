@@ -14,7 +14,7 @@ function App() {
   let [shoes, shoes변경] = useState(Data);
   let [loading, setLoading] = useState(false);
   let [clickBtnCount, setClickBtnCount] = useState(0);
-  let [재고, 재고변경] = useState([10, 11, 12]); // 많은 컴포넌트들이 사용할 것 같기에 이곳에 작성
+  let [재고, 재고변경] = useState([10, 11, 12, 13, 14, 15, 16]); // 많은 컴포넌트들이 사용할 것 같기에 이곳에 작성
 
   return (
     <div className='App'>
@@ -51,13 +51,7 @@ function App() {
               <재고context.Provider value={재고}>
                 <div className='row'>
                   {shoes.map((v, i) => (
-                    <Good
-                      title={v.title}
-                      content={v.content}
-                      price={v.price}
-                      img={`https://codingapple1.github.io/shop/shoes${i + 1}.jpg`}
-                      key={`${v.title}${i}`}
-                    />
+                    <Good shoe={v} key={`${v.title}${i}`} i={i} onClick={() => {}} />
                   ))}
                 </div>
               </재고context.Provider>
@@ -87,7 +81,9 @@ function App() {
           </div>
         </Route>
         <Route path='/detail/:id'>
-          <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
+          <재고context.Provider value={재고}>
+            <Detail shoes={shoes} 재고변경={재고변경} />
+          </재고context.Provider>
         </Route>
         <Route path='/:id'>
           <div>아무거나</div>
