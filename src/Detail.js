@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
 import { Nav } from 'react-bootstrap';
+import { 재고context } from './state/remain';
 
 let 박스 = styled.div`
   padding: 20px;
@@ -13,8 +14,10 @@ let 제목 = styled.h4`
   color: ${(props) => props.색상};
 `;
 
-export default function Detail({ shoes, 재고, 재고변경 }) {
-  let [showAlert, showAlert변경] = useState(true);
+export default function Detail({ shoes, 재고변경 }) {
+  let 재고1 = useContext(재고context);
+  console.log('재고1 : ', 재고1);
+  let [showAlert, showAlert변경] = useState(false);
   let [inputData, inputData변경] = useState('');
 
   let [누른탭, 누른탭변경] = useState(0);
@@ -22,7 +25,7 @@ export default function Detail({ shoes, 재고, 재고변경 }) {
   useEffect(() => {
     // 1. 컴포넌트가 보일 때 실행, 컴포넌트가 업데이트 될 때 실행 (컴포넌트 렌더링이 끝난 후 실행)
     let timer = setTimeout(() => {
-      showAlert변경(false);
+      showAlert변경(true);
     }, 2000); // setTimeout : 변수에 저장해서 사용 많이 한다 ! 나중에 삭제할일도 있어서.
     // 2. 컴포넌트가 사라질 때 코드를 실행시킬 수도 있음 . 무조건 함수를 써야 함 (구 언마운트역할)
     console.log('안녕');
@@ -63,11 +66,11 @@ export default function Detail({ shoes, 재고, 재고변경 }) {
             <h4 className='pt-5'>{title}</h4>
             <p>{content}</p>
             <p>{price}</p>
-            <Info 재고={재고}></Info>
+            <Info id={id}></Info>
             <button
               className='btn btn-danger'
               onClick={() => {
-                재고변경([9, 10, 11]);
+                재고변경([9, 10, 11, 12, 13, 14, 15]);
               }}>
               주문하기
             </button>
@@ -108,8 +111,10 @@ export default function Detail({ shoes, 재고, 재고변경 }) {
   );
 }
 
-function Info({ 재고 }) {
-  return <p>재고: {재고[0]}</p>;
+function Info({ id }) {
+  let 재고 = useContext(재고context);
+  console.log('info id : ', id, '재고 : ', 재고);
+  return <p>재고: {재고[id]}</p>;
 }
 
 function TabContent({ 누른탭 }) {
