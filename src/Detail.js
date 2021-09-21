@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import './Detail.scss';
 import { Nav } from 'react-bootstrap';
 import { 재고context } from './state/remain';
+import { CSSTransition } from 'react-transition-group';
 
 let 박스 = styled.div`
   padding: 20px;
@@ -21,6 +22,7 @@ export default function Detail({ shoes, 재고변경 }) {
   let [inputData, inputData변경] = useState('');
 
   let [누른탭, 누른탭변경] = useState(0);
+  let [스위치, 스위치변경] = useState(false);
 
   useEffect(() => {
     // 1. 컴포넌트가 보일 때 실행, 컴포넌트가 업데이트 될 때 실행 (컴포넌트 렌더링이 끝난 후 실행)
@@ -89,6 +91,7 @@ export default function Detail({ shoes, 재고변경 }) {
             <Nav.Link
               eventKey='link-0'
               onClick={() => {
+                스위치변경(false);
                 누른탭변경(0);
               }}>
               Active
@@ -98,6 +101,7 @@ export default function Detail({ shoes, 재고변경 }) {
             <Nav.Link
               eventKey='link-1'
               onClick={() => {
+                스위치변경(false);
                 누른탭변경(1);
               }}>
               Option 2
@@ -105,7 +109,9 @@ export default function Detail({ shoes, 재고변경 }) {
           </Nav.Item>
         </Nav>
 
-        <TabContent 누른탭={누른탭}></TabContent>
+        <CSSTransition in={스위치} classNames='wow' timeout={500}>
+          <TabContent 누른탭={누른탭} 스위치변경={스위치변경}></TabContent>
+        </CSSTransition>
       </div>
     </>
   );
@@ -117,7 +123,11 @@ function Info({ id }) {
   return <p>재고: {재고[id]}</p>;
 }
 
-function TabContent({ 누른탭 }) {
+function TabContent({ 누른탭, 스위치변경 }) {
+  useEffect(() => {
+    스위치변경(true);
+  });
+
   console.log('tab');
   if (누른탭 === 0) {
     return <div>0번째 내용입니다.</div>;
