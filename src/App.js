@@ -9,6 +9,7 @@ import Detail from './Detail.js';
 import axios from 'axios';
 import Loader from './Loader';
 import { 재고context } from './state/remain';
+import Cart from './Cart';
 
 function App() {
   let [shoes, shoes변경] = useState(Data);
@@ -85,8 +86,8 @@ function App() {
             <Detail shoes={shoes} 재고변경={재고변경} />
           </재고context.Provider>
         </Route>
-        <Route path='/:id'>
-          <div>아무거나</div>
+        <Route path='/cart'>
+          <Cart></Cart>
         </Route>
       </Switch>
     </div>
