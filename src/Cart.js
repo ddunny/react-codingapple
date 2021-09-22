@@ -12,13 +12,24 @@ function Cart(props) {
           <th>수량</th>
           <th>변경</th>
         </tr>
-        {props.state.map((v) => (
-          <tr>
+        {props.state.map((v, i) => (
+          <tr key={`cart-${i}`}>
             <td>{v.id}</td>
             <td>{v.name}</td>
             <td>{v.quan}</td>
             <td>
-              <button>변경</button>
+              <button
+                onClick={() => {
+                  props.dispatch({ type: '수량증가', payload: i });
+                }}>
+                +
+              </button>
+              <button
+                onClick={() => {
+                  props.dispatch({ type: '수량감소', payload: i });
+                }}>
+                -
+              </button>
             </td>
           </tr>
         ))}
@@ -35,6 +46,6 @@ function state를props화(state) {
   };
 }
 
-export default connect(state를props화)(Cart);
+export default connect(state를props화)(Cart); // Cart 에서 store 데이터를 사용하기 위함
 
 // export default Cart;
