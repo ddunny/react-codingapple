@@ -5,6 +5,7 @@ import './Detail.scss';
 import { Nav } from 'react-bootstrap';
 import { 재고context } from './state/remain';
 import { CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
 
 let 박스 = styled.div`
   padding: 20px;
@@ -15,7 +16,7 @@ let 제목 = styled.h4`
   color: ${(props) => props.색상};
 `;
 
-export default function Detail({ shoes, 재고변경 }) {
+function Detail({ shoes, 재고변경, dispatch }) {
   let 재고1 = useContext(재고context);
   console.log('재고1 : ', 재고1);
   let [showAlert, showAlert변경] = useState(false);
@@ -72,7 +73,13 @@ export default function Detail({ shoes, 재고변경 }) {
             <button
               className='btn btn-danger'
               onClick={() => {
-                재고변경([9, 10, 11, 12, 13, 14, 15]);
+                재고변경(() => {
+                  let temp = [...재고1];
+                  temp[id] = temp[id] - 1;
+                  return temp;
+                });
+                dispatch({ type: '항목추가', payload: { id: id, name: content, quan: 1 } }); // payload는 다른 이름으로도 쓸 수 있음
+                history.push('/cart');
               }}>
               주문하기
             </button>
@@ -135,3 +142,12 @@ function TabContent({ 누른탭, 스위치변경 }) {
     return <div>1번째 내용입니다.</div>;
   }
 }
+
+function state를props화(state) {
+  console.log('state를props화 ', state);
+  return {
+    state: state.reducer,
+  };
+}
+
+export default connect(state를props화)(Detail); // Cart 에서 store 데이터를 사용하기 위함

@@ -38,6 +38,16 @@ function reducer(state = 초기값, 액션) {
 
     // 데이터 수정조건 담기
     return copy;
+  } else if (액션.type === '항목추가') {
+    let copy = [...state];
+    const sameItemPlace = copy.findIndex((v) => 액션.payload.name === v.name);
+
+    if (sameItemPlace === -1) {
+      copy.push(액션.payload);
+    } else {
+      copy[sameItemPlace].quan++;
+    }
+    return copy;
   } else {
     return state;
   }
