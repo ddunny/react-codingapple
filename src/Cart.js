@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import './Cart.scss';
 
 function Cart(props) {
   return (
@@ -34,6 +35,17 @@ function Cart(props) {
           </tr>
         ))}
       </Table>
+      {props.alert열렸니 ? (
+        <div className='my-alert2'>
+          <p>지금 구매하시면 신규할인 20%</p>
+          <button
+            onClick={() => {
+              props.dispatch({ type: '얼럿닫기' });
+            }}>
+            닫기
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -41,8 +53,10 @@ function Cart(props) {
 // redux를 쓰는 이유
 // 깊은 하위 컴포넌트들도 props 여러번 전송없이 state를 직접 갖다쓸 수 있음
 function state를props화(state) {
+  console.log('state를props화 ', state);
   return {
-    state: state,
+    state: state.reducer,
+    alert열렸니: state.reducer2, //리듀서2에 있는거 가져오는법
   };
 }
 

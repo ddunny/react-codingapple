@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
 let 초기값 = [
   { id: 0, name: '나이키', quan: 1 },
@@ -43,7 +43,17 @@ function reducer(state = 초기값, 액션) {
   }
 }
 
-let store = createStore(reducer);
+let alert초기값 = true;
+
+function reducer2(state = alert초기값, 액션) {
+  if (액션.type === '얼럿닫기') {
+    return false;
+  }
+  console.log('reducer2 ', state, 액션);
+  return state;
+}
+
+let store = createStore(combineReducers({ reducer, reducer2 }));
 
 ReactDOM.render(
   <React.StrictMode>
